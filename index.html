@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="main">
+        <div id="show" class="visible">
+            <img id="rotate"  src="./public/loader_icon.svg" alt="">
+        </div>
+        <div id="hide" class="changeMain" style="position: relative; left: 0; top: 0;">
+            <img id="image" class="firstMain" src="./public/Blue umbrella.png" alt="">
+            <img id="blend" src="./public/loader_icon.svg" alt="">
+        </div>
+        <div class="secondMain">
+            <h1>Custom Umbrella</h1>
+            <div style="display:flex;">
+                <div id="pinks" class="button pink"></div>
+                <div id="blues" class="button blue"></div>
+                <div id="yellows" class="button yellow"></div>
+            </div>
+            <h3>Customize your Umbrella</h3>
+            <h4>Upload a logo to see instant preview</h4>
+            
+                <input type="file" id="upload" accept="image/png, image/gif, image/jpeg">
+
+            <label id="btn"  for="upload"><img style="height:2vh;width: 2vh;" src="./public/upload_icon.svg" alt="">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>Upload Logo</span>&nbsp;&nbsp;</label>
+        </div>
+    </div>
+    <script>
+        
+        let pink = document.getElementById('pinks')
+        let blue = document.getElementById('blues')
+        let yellow = document.getElementById('yellows')
+        let image = document.getElementById('image')
+        let inputs = document.getElementById('upload')
+        let blend = document.getElementById('blend')
+        let show = document.getElementById('show')
+        let umbre = document.getElementById('hide')
+
+        pink.addEventListener('click',()=>{
+            image.src = './public/Pink umbrella.png'
+            document.body.style.backgroundImage =  "linear-gradient(to right, " + 'white' + ", "  + 'pink' + ")";
+        })
+        blue.addEventListener('click',()=>{
+            image.src = './public/Blue umbrella.png'
+            document.body.style.backgroundImage =  "linear-gradient(to right, " + 'white' + ", "  + 'rgb(0, 119, 255' + ")";
+        })
+        yellow.addEventListener('click',()=>{
+            image.src = './public/Yello umbrella.png'
+            document.body.style.backgroundImage =  "linear-gradient(to right, " + 'white' + ", "  + 'yellow' + ")";
+        })
+ 
+        inputs.addEventListener('change',()=>{
+            var reader = new FileReader();
+            reader.readAsDataURL(inputs.files[0])
+            reader.onload = function(){
+                localStorage.setItem("image", reader.result);
+                blend.setAttribute("src", localStorage.getItem("image"))
+            }
+            if(localStorage.getItem("image")){
+                blend.setAttribute("src", localStorage.getItem("image"))
+
+            }
+            // blend.src = inputs.value;
+            console.log(inputs.files[0])
+            show.classList.remove('visible')
+            umbre.classList.add('visible')
+            setTimeout(()=>{
+                show.classList.add('visible')
+                umbre.classList.remove('visible')
+            },4000)
+        })
+        
+
+    </script>
+</body>
+</html>
